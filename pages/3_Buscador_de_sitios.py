@@ -1,7 +1,7 @@
 import streamlit as st
 import re
 from src.config import load_apps_config
-from src.ui.formatting import inject_base_css, sidebar_app_dataset_picker, download_button_df
+from src.ui.formatting import inject_base_css, sidebar_app_dataset_picker, sidebar_season_switcher, download_button_df
 from src.data.excel_loader import load_dataset_tables
 from src.logic.site_search import suggest_sites, search_site_exact, enrich_with_important_info
 from src.logic.split_view import get_splits, get_stations_for_split
@@ -52,6 +52,7 @@ selected_station = st.sidebar.selectbox(
     stations,
     key="search_station",
 )
+sidebar_season_switcher()
 
 st.caption(
     f"Contexto actual: split {selected_split}, tu estacion {selected_station}. "

@@ -1,6 +1,6 @@
 import streamlit as st
 from src.config import load_apps_config
-from src.ui.formatting import inject_base_css, sidebar_app_dataset_picker
+from src.ui.formatting import inject_base_css, sidebar_app_dataset_picker, sidebar_season_switcher
 from src.data.excel_loader import load_dataset_tables
 from src.logic.split_view import get_splits, get_stations_for_split, build_split_view
 
@@ -42,6 +42,7 @@ if not splits:
 split = st.sidebar.selectbox("Split (# operadores)", splits, index=0)
 stations = get_stations_for_split(df, split)
 station = st.sidebar.selectbox("Station", stations, index=0)
+sidebar_season_switcher()
 
 view = build_split_view(df, split=split, station=station, extended=extended)
 
