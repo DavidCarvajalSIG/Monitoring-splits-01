@@ -6,6 +6,17 @@ from src.data.excel_loader import load_dataset_tables
 from src.logic.site_search import suggest_sites, search_site_exact, enrich_with_important_info
 from src.logic.split_view import get_splits, get_stations_for_split
 
+SHARED_SPLIT_KEY = "shared_selected_split"
+SHARED_STATION_KEY = "shared_selected_station"
+SPLIT_WIDGET_KEY = "search_selected_split"
+STATION_WIDGET_KEY = "search_selected_station"
+
+def _site_alert_style(value) -> str:
+    s = str(value or "").upper()
+    if "(NO TOURS)" in s:
+        return "color: #c1121f; font-weight: 700;"
+    return ""
+
 st.set_page_config(page_title="Buscador de sitios", layout="wide")
 inject_base_css()
 
@@ -30,28 +41,34 @@ if not splits:
     st.error("No se encontraron splits en el dataset seleccionado.")
     st.stop()
 
-if st.session_state.get("search_split") not in splits:
-    st.session_state["search_split"] = splits[0]
+if st.session_state.get(SHARED_SPLIT_KEY) not in splits:
+    st.session_state[SHARED_SPLIT_KEY] = splits[0]
+if st.session_state.get(SPLIT_WIDGET_KEY) not in splits:
+    st.session_state[SPLIT_WIDGET_KEY] = st.session_state[SHARED_SPLIT_KEY]
 
 selected_split = st.sidebar.selectbox(
     "Split (# operadores)",
     splits,
-    key="search_split",
+    key=SPLIT_WIDGET_KEY,
 )
+st.session_state[SHARED_SPLIT_KEY] = selected_split
 
 stations = get_stations_for_split(df, selected_split)
 if not stations:
     st.error("No hay estaciones para el split seleccionado.")
     st.stop()
 
-if st.session_state.get("search_station") not in stations:
-    st.session_state["search_station"] = stations[0]
+if st.session_state.get(SHARED_STATION_KEY) not in stations:
+    st.session_state[SHARED_STATION_KEY] = stations[0]
+if st.session_state.get(STATION_WIDGET_KEY) not in stations:
+    st.session_state[STATION_WIDGET_KEY] = st.session_state[SHARED_STATION_KEY]
 
 selected_station = st.sidebar.selectbox(
     "Tu estacion actual",
     stations,
-    key="search_station",
+    key=STATION_WIDGET_KEY,
 )
+st.session_state[SHARED_STATION_KEY] = selected_station
 sidebar_season_switcher()
 
 st.caption(
@@ -133,5 +150,9 @@ if found_stations:
 
 st.title("Resultado de tu busqueda:")
 result_cols = [c for c in ["Site", "ID", "Split", "Station"] if c in matches.columns]
-st.dataframe(matches[result_cols], use_container_width=True, hide_index=True)
+result_df = matches[result_cols].copy()
+styled = result_df.style
+if "Site" in result_df.columns:
+    styled = styled.map(_site_alert_style, subset=["Site"])
+st.dataframe(styled, use_container_width=True, hide_index=True)
 

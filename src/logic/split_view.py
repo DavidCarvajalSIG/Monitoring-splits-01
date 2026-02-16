@@ -51,12 +51,11 @@ def build_split_view(df: pd.DataFrame, split: int, station: int, extended: bool)
 
     if extended:
         cols = [
-            "Hour","Time","Site","ID","Drop time","SUNDAY (D.T.)",
+            "Hour","Time","Site","ID","SIG Tools","Map","Drop time","SUNDAY (D.T.)",
             "Gates","Entrances","LPR","PTZ","Important Cameras","Notes*",
-            "SIG Tools","Map"
         ]
     else:
-        cols = ["Hour","Time","Site","ID","Drop time"]
+        cols = ["Hour","Time","Site","ID","SIG Tools","Map","Drop time"]
 
     cols = [c for c in cols if c in f.columns]
     return f[cols].reset_index(drop=True)
