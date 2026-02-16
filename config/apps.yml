@@ -1,0 +1,41 @@
+﻿apps:
+  omnia:
+    label: "OMNIA"
+    datasets:
+      mar_nov:
+        label: "MAR -> NOV"
+        file: "data/excel/omnia/3. OMNIA Monitoring Split - MAR to NOV 4.0.xlsx"
+        base_sheet: "Flat Base"
+        ha_sheet: " (H.A.) Flat Base"
+        ha_header_row: 1
+        important_info_sheet: "Important Info!"
+      nov_mar:
+        label: "NOV -> MAR"
+        file: "data/excel/omnia/OMNIA Monitoring Split - NOV to MAR 4.0.xlsx"
+        base_sheet: "Flat Base"
+        ha_sheet: " (H.A.) Flat Base"
+        ha_header_row: 1
+        important_info_sheet: "Important Info!"
+
+  luxriot:
+    label: "Luxriot"
+    datasets: 
+      mar_nov:
+        label: "LUXRIOT - NOV -> MAR -- Friday Split"
+        file: "data/excel/luxriot/Luxriot - FRIDAY - NOV to MAR 4.0.xlsx"
+        base_sheet: "Flat Base"
+        ha_sheet: " (H.A.) Flat Base"
+        ha_header_row: 1
+        important_info_sheet: "Important Info!"
+      nov_mar:
+        label: "LUXRIOT - NOV -> MAR -- Sat and sun split"
+        file: "data/excel/luxriot/Luxriot - SAT-SUN - NOV to MAR 4.0.xlsx"
+        base_sheet: "Flat Base"
+        ha_sheet: " (H.A.) Flat Base"
+        ha_header_row: 1
+        important_info_sheet: "Important Info!"
+
+  black_and_blue:
+    label: "Black & Blue"
+    datasets: {}
+
