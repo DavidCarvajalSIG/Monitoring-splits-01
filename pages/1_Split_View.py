@@ -76,7 +76,7 @@ if "Map" in display.columns:
     column_config["Map"] = st.column_config.LinkColumn("Map", display_text="Abrir", width="small")
 
 table_height = min(880, max(320, 34 * (len(display) + 1)))
-st.caption("Haz clic en 'Abrir' en SIG Tools o Map para entrar directo al link.")
+st.caption("Haz clic en 'Abrir' en SIG Tools o Map para entrar directo al link .")
 st.dataframe(
     display,
     use_container_width=True,
