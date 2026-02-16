@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from pathlib import Path
+import shutil
+import tempfile
 import pandas as pd
 import streamlit as st
 
@@ -31,7 +33,28 @@ def _normalize_types(df: pd.DataFrame) -> pd.DataFrame:
 @st.cache_data(show_spinner=False)
 def _read_excel(file_abs: str, sheet_name: str, header: int):
     # header=0 para hojas normales, header=1 para HA
-    return pd.read_excel(file_abs, sheet_name=sheet_name, header=header)
+    try:
+        return pd.read_excel(file_abs, sheet_name=sheet_name, header=header)
+    except PermissionError as direct_err:
+        src = Path(file_abs)
+        # Fallback: copiar primero el archivo y leer desde copia temporal.
+        # En algunos entornos de OneDrive/Excel esto evita bloqueos de acceso directo.
+        try:
+            with tempfile.NamedTemporaryFile(prefix="msplits_", suffix=src.suffix, delete=False) as tmp:
+                tmp_path = Path(tmp.name)
+            shutil.copy2(src, tmp_path)
+            try:
+                return pd.read_excel(tmp_path, sheet_name=sheet_name, header=header)
+            finally:
+                tmp_path.unlink(missing_ok=True)
+        except Exception as fallback_err:
+            raise PermissionError(
+                f"No se pudo abrir el Excel '{file_abs}'. "
+                "Cierra el archivo en Excel, espera que OneDrive termine de sincronizar "
+                "y vuelve a intentar. "
+                f"Detalle original: {direct_err}. "
+                f"Detalle fallback: {fallback_err}"
+            ) from fallback_err
 
 def load_dataset_tables(cfg: dict, app_key: str, dataset_key: str) -> dict:
     from src.config import resolve_dataset

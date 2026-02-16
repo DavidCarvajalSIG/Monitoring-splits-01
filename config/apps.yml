@@ -21,42 +21,42 @@
     label: "Luxriot"
     datasets: 
       mar_nov:
-        label: "LUXRIOT - NOV -> MAR -- Friday Split"
+        label: "NOV -> MAR -- Friday Split"
         file: "data/excel/luxriot/Luxriot - FRIDAY - NOV to MAR 4.0.xlsx"
         base_sheet: "Flat Base"
         ha_sheet: " (H.A.) Flat Base"
         ha_header_row: 1
         important_info_sheet: "Important Info!"
       nov_mar:
-        label: "LUXRIOT - NOV -> MAR -- Sat and sun split"
+        label: "NOV -> MAR -- Sat and sun split"
         file: "data/excel/luxriot/Luxriot - SAT-SUN - NOV to MAR 4.0.xlsx"
         base_sheet: "Flat Base"
         ha_sheet: " (H.A.) Flat Base"
         ha_header_row: 1
         important_info_sheet: "Important Info!"
       nov_mar_full:
-        label: "LUXRIOT - NOV -> MAR -- Monday to thursday"
+        label: "NOV -> MAR -- Monday to thursday"
         file: "data/excel/luxriot/Luxriot - NOV to MAR 4.0.xlsx"
         base_sheet: "Flat Base"
         ha_sheet: " (H.A.) Flat Base"
         ha_header_row: 1
         important_info_sheet: "Important Info!"
       mar_nov_friday:
-        label: "LUXRIOT - MAR -> NOV -- Friday Split"
+        label: "MAR -> NOV -- Friday Split"
         file: "data/excel/luxriot/Luxriot - FRIDAY - MAR to NOV 4.0.xlsx"
         base_sheet: "Flat Base"
         ha_sheet: " (H.A.) Flat Base"
         ha_header_row: 1
         important_info_sheet: "Important Info!"
       mar_nov_sat_sun:
-        label: "LUXRIOT - MAR -> NOV -- Sat and sun split"
+        label: "MAR -> NOV -- Sat and sun split"
         file: "data/excel/luxriot/Luxriot - SAT-SUN - MAR to NOV 4.0.xlsx"
         base_sheet: "Flat Base"
         ha_sheet: " (H.A.) Flat Base"
         ha_header_row: 1
         important_info_sheet: "Important Info!"
       mar_nov_full:
-        label: "LUXRIOT - MAR -> NOV -- Monday to thursday"
+        label: "MAR -> NOV -- Monday to thursday"
         file: "data/excel/luxriot/Luxriot - MAR to NOV 4.0.xlsx"
         base_sheet: "Flat Base"
         ha_sheet: " (H.A.) Flat Base"

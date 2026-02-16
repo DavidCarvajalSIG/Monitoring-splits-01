@@ -132,6 +132,6 @@ if found_stations:
         st.warning("Tu estacion actual no monitorea ese sitio en este split.")
 
 st.title("Resultado de tu busqueda:")
-result_cols = [c for c in ["Site", "Split", "Station"] if c in matches.columns]
+result_cols = [c for c in ["Site", "ID", "Split", "Station"] if c in matches.columns]
 st.dataframe(matches[result_cols], use_container_width=True, hide_index=True)
 

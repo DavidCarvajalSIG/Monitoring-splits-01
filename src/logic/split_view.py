@@ -37,6 +37,10 @@ def _hour_sort_key(x) -> tuple[int, int, int, str]:
     else:
         hh24 = 12 if hh == 12 else hh + 12
 
+    # Cualquier hora A.M. se manda al final del listado.
+    if ap == "A":
+        return (2, hh24, mm, s)
+
     return (1, hh24, mm, s)
 
 def build_split_view(df: pd.DataFrame, split: int, station: int, extended: bool) -> pd.DataFrame:
@@ -47,12 +51,12 @@ def build_split_view(df: pd.DataFrame, split: int, station: int, extended: bool)
 
     if extended:
         cols = [
-            "Hour","Time","Site","Drop time","SUNDAY (D.T.)",
+            "Hour","Time","Site","ID","Drop time","SUNDAY (D.T.)",
             "Gates","Entrances","LPR","PTZ","Important Cameras","Notes*",
-            "ID","SIG Tools","Map"
+            "SIG Tools","Map"
         ]
     else:
-        cols = ["Hour","Time","Site","Drop time","ID"]
+        cols = ["Hour","Time","Site","ID","Drop time"]
 
     cols = [c for c in cols if c in f.columns]
     return f[cols].reset_index(drop=True)
